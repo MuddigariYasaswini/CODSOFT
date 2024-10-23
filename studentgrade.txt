@@ -1,0 +1,60 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class StudentGradeCalculator {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<Double> scores = new ArrayList<>();
+
+        System.out.println("Enter the scores separated by spaces (type 'done' to finish):");
+
+        while (scanner.hasNext()) {
+            if (scanner.hasNextDouble()) {
+                scores.add(scanner.nextDouble());
+            } else {
+                String input = scanner.next();
+                if (input.equalsIgnoreCase("done")) {
+                    break;
+                } else {
+                    System.out.println("Please enter a valid score or 'done' to finish.");
+                }
+            }
+        }
+
+        if (scores.isEmpty()) {
+            System.out.println("No scores available.");
+        } else {
+            double average = calculateAverage(scores);
+            char grade = determineGrade(average);
+
+            System.out.printf("Average Score: %.2f%n", average);
+            System.out.println("Letter Grade: " + grade);
+        }
+
+ scanner.close();
+    }
+
+    private static double calculateAverage(List<Double> scores) {
+        double sum = 0;
+        for (double score : scores) {
+            sum += score;
+        }
+        return sum / scores.size();
+    }
+
+    private static char determineGrade(double average) {
+        if (average >= 90) {
+            return 'A';
+        } else if (average >= 80) {
+            return 'B';
+        } else if (average >= 70) {
+            return 'C';
+        } else if (average >= 60) {
+            return 'D';
+        } else {
+            return 'F';
+        }
+    }
+}
